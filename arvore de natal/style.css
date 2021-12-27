@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing:border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: navajowhite;
+}
+.arvore {
+    position: relative;
+    top: -60px;
+    width: 300px;
+    height: 300px;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(30deg);
+    animation: animate 6s linear infinite;
+}
+.arvore::before{
+ content: '🌟';
+position:absolute;
+font-size: 4em;
+top: -180px;
+left:105px;;
+
+}
+@keyframes animate {
+    0%
+    {
+        transform: rotateX(-20deg) rotateY(360deg);
+    }
+    100%{
+        transform: rotateX(-20deg) rotateY(0deg);
+    }
+}
+.arvore div {
+    position: absolute;
+    top:-100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: translateY(calc(100px * var(--j)))
+    
+}
+
+.arvore div.topo span {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #69c069, #48a748);
+    clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+    border-bottom: 10px solid #00000019;
+    transform: rotateY(calc(90deg * var(--i)))
+    rotateX(30deg)
+    translateZ(85px) ;
+
+}
+.arvore div.tronco span {
+    position:absolute;
+    top: 450px;
+    left: 120px;
+    height: 200px;
+    width: 60px;
+    background: linear-gradient(90deg, #bb4622, #df7214);
+    /* clip-path: polygon(50% 0%, 0% 100%, 100% 100%); */
+    transform-origin: bottom;
+    border-bottom: 10px solid #00000019;
+    transform:rotateY(calc(90deg * var(--i))) translateZ(30px);
+}
+
+.sombra {
+    position:absolute;
+    top:0;
+    left:0;
+    width: 300px;
+    height: 300px;
+    background: #0002;
+    transform-style: preserve-3d;
+    transform: rotateX(90deg) translateZ(-400px);
+    filter: blur(20px);
+}
