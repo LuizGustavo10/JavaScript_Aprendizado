@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="container"> 
+        <h1>Jogo da velha</h1>
+    <table class="jogo" border="2" >
+        <tr>
+          <td class="quadrado" onclick="jogar(this)" ></td>
+          <td class="quadrado" onclick="jogar(this)" ></td>
+          <td class="quadrado" onclick="jogar(this)" ></td>
+        </tr>
+        <tr>
+          <td class="quadrado" onclick="jogar(this)"></td>
+          <td class="quadrado" onclick="jogar(this)"></td>
+          <td class="quadrado" onclick="jogar(this)"></td>
+        </tr>
+        <tr>
+          <td class="quadrado" onclick="jogar(this)"></td>
+          <td class="quadrado" onclick="jogar(this)"></td>
+          <td class="quadrado" onclick="jogar(this)"></td>
+        </tr>
+      </table>
+
+      <button class="botao" onclick="reiniciar()">Reiniciar</button>
+
+      </div>
+      
+      <script>
+        // Javascript
+            var jogador = "X";
+            
+            function jogar(celula) {
+                if (celula.innerHTML == "") {
+                    celula.innerHTML = jogador;
+                if (jogador == "X") {
+                    jogador = "O";
+                } else {
+                    jogador = "X";
+                }
+                }
+            }
+
+            function reiniciar(){
+                window.location.reload();
+            }
+
+      </script>
+</body>
+</html>

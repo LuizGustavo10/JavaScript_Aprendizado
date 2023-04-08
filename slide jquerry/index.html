@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplo de slide com jQuery</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		#slider {
+			width: 500px;
+			height: 300px;
+			overflow: hidden;
+			position: relative;
+		}
+		#slider img {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index: -1;
+			transition: opacity 1s ease-in-out;
+		}
+		#slider img.active {
+			opacity: 1;
+			z-index: 1;
+		}
+		#slider .controls {
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 2;
+		}
+		#slider .controls button {
+			background-color: #333;
+			color: #fff;
+			border: none;
+			padding: 10px;
+			margin: 0 10px;
+			cursor: pointer;
+			transition: background-color 0.3s ease-in-out;
+		}
+		#slider .controls button:hover {
+			background-color: #666;
+		}
+	</style>
+	<script>
+		$(document).ready(function() {
+			var currentSlide = 0;
+			var slides = $('#slider img');
+			var slideCount = slides.length;
+
+			slides.eq(currentSlide).addClass('active');
+
+			function nextSlide() {
+				slides.eq(currentSlide).removeClass('active');
+				currentSlide = (currentSlide + 1) % slideCount;
+				slides.eq(currentSlide).addClass('active');
+			}
+
+			var slideInterval = setInterval(nextSlide, 3000);
+
+			$('#next').click(function() {
+				clearInterval(slideInterval);
+				nextSlide();
+				slideInterval = setInterval(nextSlide, 3000);
+			});
+
+			$('#prev').click(function() {
+				clearInterval(slideInterval);
+				slides.eq(currentSlide).removeClass('active');
+				currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+				slides.eq(currentSlide).addClass('active');
+				slideInterval = setInterval(nextSlide, 3000);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="slider">
+		<img src="https://img.freepik.com/fotos-gratis/foto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg?w=2000">
+		<img src="https://st2.depositphotos.com/3745557/8913/i/600/depositphotos_89137110-stock-photo-beautiful-and-old-oak-at.jpg">
+		<img src="https://thumbs.dreamstime.com/b/%C3%A1rvore-no-campo-31004702.jpg">
+		<div class="controls">
+			<button id="prev">Anterior</button>
+			<button id="next">Próximo</button>
+		</div>
+	</div>
+</body>
+</html>
