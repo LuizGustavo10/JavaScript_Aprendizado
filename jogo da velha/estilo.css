@@ -1,5 +1,5 @@
 .container{
-    width: 700px; 
+    width: 1000px; 
     margin-left: auto;
     margin-right: auto; 
 }
@@ -16,6 +16,7 @@
     background-color: rgb(51, 126, 210);
     color: white;
 }
+
 
 body {
     color: white;
@@ -35,3 +36,35 @@ body {
 }
 
 
+span {
+    font-size: 40px;
+    font-family: fantasy;
+}
+
+#q1 {
+    background-color: red;
+}
+#q2 {
+    background-color: orange;
+}
+#q3 {
+    background-color: yellow;
+}
+#q4 {
+    background-color: green;
+}
+#q5 {
+    background-color: deeppink;
+}
+#q6 {
+    background-color: blue;
+}
+#q7 {
+    background-color: darkorchid;
+}
+#q8 {
+    background-color: black;
+}
+#q9 {
+    background-color:brown;
+}

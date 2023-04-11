@@ -9,22 +9,28 @@
 </head>
 <body>
     <div class="container"> 
-        <h1>Jogo da velha</h1>
+        
+        <button class="botao" onclick="gerarBatalha()">Gerar Batalha</button>
+        <span id="jogador1"></span>
+        <span>  vs  </span>
+        <span id="jogador2"></span>
+            
+
     <table class="jogo" border="2" >
         <tr>
-          <td class="quadrado" onclick="jogar(this)" ></td>
-          <td class="quadrado" onclick="jogar(this)" ></td>
-          <td class="quadrado" onclick="jogar(this)" ></td>
+          <td class="quadrado" id="q1" onclick="jogar(this)" ></td>
+          <td class="quadrado" id="q2" onclick="jogar(this)" ></td>
+          <td class="quadrado" id="q3" onclick="jogar(this)" ></td>
         </tr>
         <tr>
-          <td class="quadrado" onclick="jogar(this)"></td>
-          <td class="quadrado" onclick="jogar(this)"></td>
-          <td class="quadrado" onclick="jogar(this)"></td>
+          <td class="quadrado" id="q4" onclick="jogar(this)"></td>
+          <td class="quadrado" id="q5" onclick="jogar(this)"></td>
+          <td class="quadrado" id="q6" onclick="jogar(this)"></td>
         </tr>
         <tr>
-          <td class="quadrado" onclick="jogar(this)"></td>
-          <td class="quadrado" onclick="jogar(this)"></td>
-          <td class="quadrado" onclick="jogar(this)"></td>
+          <td class="quadrado" id="q7" onclick="jogar(this)"></td>
+          <td class="quadrado" id="q8" onclick="jogar(this)"></td>
+          <td class="quadrado" id="q9" onclick="jogar(this)"></td>
         </tr>
       </table>
 
@@ -33,6 +39,29 @@
       </div>
       
       <script>
+        const nomes1 = ['ALESSANDRO','ALISON','ALLANIS',"ANA CAROLINA","DANIELA","EDUARDO","GEOVANA","GISLAINE","GUILHERME","JOAO LUCAS","JOÃO RENNAN","KAIKY","KAUAN","KAUANA","LETICIA","LORENNA","LUCAS CORDEIRO","LUCCAS SCOLARO","LUIZ GUILHERME","MARCIO","MARIA REGIANE","MATEUS","ORLANDO","PÂMELA","TALIA","WILSON"];
+        const nomes2 = ['ALESSANDRO','ALISON','ALLANIS',"ANA CAROLINA","DANIELA","EDUARDO","GEOVANA","GISLAINE","GUILHERME","JOAO LUCAS","JOÃO RENNAN","KAIKY","KAUAN","KAUANA","LETICIA","LORENNA","LUCAS CORDEIRO","LUCCAS SCOLARO","LUIZ GUILHERME","MARCIO","MARIA REGIANE","MATEUS","ORLANDO","PÂMELA","TALIA","WILSON"];
+
+        //math floor arredonda para o numero mais proximo
+        function gerarBatalha() {
+            const nome1Aleatorio = nomes1[Math.floor(Math.random() * nomes1.length)];
+            const nome2Aleatorio = nomes1[Math.floor(Math.random() * nomes1.length)];
+
+            while(nome1Aleatorio == nome2Aleatorio){
+                gerarBatalha();
+            }
+
+            document.getElementById('jogador1').textContent = nome1Aleatorio;
+            document.getElementById('jogador2').textContent = nome2Aleatorio;
+
+
+
+        }
+
+ 
+
+
+
         // Javascript
             var jogador = "X";
             
