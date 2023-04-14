@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Aula 4 - JS</title>
-  </head>
-  <body>
-    <script type="text/javascript">
-      //lista normal
-      var pessoa = ['Luiz','Gustavo','18'];
-      console.log(pessoa[0]);
-      // agora um OBJETO
-      var pessoas = {
-        nome:'Luiz',
-        sobrenome:'Gustavo',
-        idade:'18',
-        andar: function(){
-          alert('caminhando')
-        }
-      };
-      //tamanho = pessoa.lenght
-      console.log(pessoas.nome);
-      console.log(pessoas.andar());
 
-      var frutas = ['abacaxi','morango','laranja'];
-      frutas.push('pitanga');//adicionando item no array
-      frutas.sort();//coloca em ordem alfabética
-      //frutas.reverse();//inverte a ordem do array
-      console.log(frutas.length);
-      console.log(frutas.toString());//transformando em String
-      console.log(frutas.join(' - ')) //coloca tracinho entre
-      //frutas.pop(); //exclui o último item
-      //frutas.shift();//remove primeiro item
-      //frutas.unshift('pitanga'); adiciona primeiro
+<head>
+  <meta charset="utf-8">
+  <title>Aula 4 - JS</title>
+</head>
 
-    </script>
-  </body>
+<body>
+  <script type="text/javascript">
+    //lista normal
+    var pessoa = ['Luiz', 'Gustavo', '18'];
+    console.log(pessoa[0]);
+    // agora um OBJETO
+    var pessoas = {
+      nome: 'Luiz',
+      sobrenome: 'Gustavo',
+      idade: '18',
+      andar: function () {
+        alert('caminhando')
+      }
+    };
+    //tamanho = pessoa.lenght
+    console.log(pessoas.nome);
+    console.log(pessoas.andar());
+
+    var frutas = ['abacaxi', 'morango', 'laranja'];
+    frutas.push('pitanga');//adicionando item no array
+    frutas.sort();//coloca em ordem alfabética
+    //frutas.reverse();//inverte a ordem do array
+    console.log(frutas.length);
+    console.log(frutas.toString());//transformando em String
+    console.log(frutas.join(' - ')) //coloca tracinho entre
+    //frutas.pop(); //exclui o último item
+    //frutas.shift();//remove primeiro item
+    //frutas.unshift('pitanga'); adiciona primeiro
+
+    // Criando um objeto
+    let pessoa = {
+      nome: 'João',
+      idade: 30,
+      profissao: 'Desenvolvedor',
+      saudacao: function () {
+        console.log(`Olá, meu nome é ${this.nome} e tenho ${this.idade} anos.`)
+      }
+    };
+
+    // Acessando propriedades do objeto
+    console.log(pessoa.nome); // 'João'
+    console.log(pessoa.idade); // 30
+    console.log(pessoa.profissao); // 'Desenvolvedor'
+
+    // Chamando o método do objeto
+    pessoa.saudacao(); // 'Olá, meu nome é João e tenho 30 anos.'
+
+  </script>
+</body>
+
 </html>

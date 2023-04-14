@@ -14,7 +14,11 @@ function gerarBatalha() {
     document.getElementById('jogador1').textContent = nome1Aleatorio;
     document.getElementById('jogador2').textContent = nome2Aleatorio;
 
-
+    //dom -dar futuramente
+    var elemento = document.getElementById("botaos");
+        elemento.style.backgroundColor = "red";
+        elemento.style.fontSize = "15px";
+        elemento.style.border = "5px solid black";
 
 }
 
@@ -23,6 +27,7 @@ function gerarBatalha() {
     var jogador = "X";
     
     function jogar(celula) {
+        
         if (celula.innerHTML == "") {
             celula.innerHTML = jogador;
         if (jogador == "X") {
@@ -34,6 +39,8 @@ function gerarBatalha() {
     }
 
     function reiniciar(){
-        window.location.reload();
+        // elemento.style.backgroundColor = "red";
+       window.location.reload();
+ 
     }
 
