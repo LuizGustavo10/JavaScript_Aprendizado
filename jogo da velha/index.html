@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="estilo.css">
-    <script src="javascript.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="estilo.css">
+  <script src="javascript.js"></script>
 </head>
+
 <body>
-    <div class="container"> 
-        
-        <button id="botaos" class="botao" onclick="gerarBatalha()">Gerar Batalha</button>
-        <span id="jogador1"></span>
-        <span>  vs  </span>
-        <span id="jogador2"></span>
-            
+  <div class="container">
+    <div class="esquerda">
 
-    <table class="jogo" border="2" >
-        <tr>
-          <td class="quadrado" id="q1" onclick="jogar(this)" ></td>
-          <td class="quadrado" id="q2" onclick="jogar(this)" ></td>
-          <td class="quadrado" id="q3" onclick="jogar(this)" ></td>
-        </tr>
-        <tr>
-          <td class="quadrado" id="q4" onclick="jogar(this)"></td>
-          <td class="quadrado" id="q5" onclick="jogar(this)"></td>
-          <td class="quadrado" id="q6" onclick="jogar(this)"></td>
-        </tr>
-        <tr>
-          <td class="quadrado" id="q7" onclick="jogar(this)"></td>
-          <td class="quadrado" id="q8" onclick="jogar(this)"></td>
-          <td class="quadrado" id="q9" onclick="jogar(this)"></td>
-        </tr>
-      </table>
+    <button id="botaos" class="botao" onclick="gerarBatalha()">Gerar Batalha</button>
+    <span id="jogador1"></span>
+    <span> vs </span>
+    <span id="jogador2"></span>
 
-      <button class="botao" onclick="reiniciar()">Reiniciar</button>
 
-      </div>
-      
+    <table class="jogo" border="2">
+      <tr>
+        <td class="quadrado" id="q1" onclick="jogar(this)"></td>
+        <td class="quadrado" id="q2" onclick="jogar(this)"></td>
+        <td class="quadrado" id="q3" onclick="jogar(this)"></td>
+      </tr>
+      <tr>
+        <td class="quadrado" id="q4" onclick="jogar(this)"></td>
+        <td class="quadrado" id="q5" onclick="jogar(this)"></td>
+        <td class="quadrado" id="q6" onclick="jogar(this)"></td>
+      </tr>
+      <tr>
+        <td class="quadrado" id="q7" onclick="jogar(this)"></td>
+        <td class="quadrado" id="q8" onclick="jogar(this)"></td>
+        <td class="quadrado" id="q9" onclick="jogar(this)"></td>
+      </tr>
+    </table>
+
+
+    <button class="botao" onclick="reiniciar()">Reiniciar</button>
+  </div>
+  <div class="direita">
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name">
+
+    <button onclick="addToArr()">Adicionar</button>
+
+    <ul id="myList">
+      <!-- Lista vazia, inicialmente -->
+    </ul>
+  </div>
+  </div>
+
+
 
 </body>
+
 </html>
