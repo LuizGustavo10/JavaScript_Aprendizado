@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exemplo de Requisição Assíncrona</title>
+</head>
+
+<body>
+    <h1>Exemplo de Requisição Assíncrona</h1>
+    <button onclick="buscarDados()">Buscar Dados</button>
+    <ul id="lista-dados"></ul>
+</body>
+
+<script>
+    function buscarDados() {
+        //A parte assíncrona do código está no uso do objeto XMLHttpRequest(). 
+        // Quando a função xhr.send() é chamada, a requisição HTTP é enviada de forma
+        //  assíncrona para o servidor especificado no método xhr.open().
+        const xhr = new XMLHttpRequest(); //nova instância do objeto XMLHttpRequest, define o método HTTP como GET e o URL para buscar dados de usuários fictícios em um servidor de teste
+
+        xhr.open('GET', 'https://jsonplaceholder.typicode.com/users');
+
+        //Enquanto aguarda a resposta do servidor, a função continua a ser executada sem bloquear a interface do usuário.
+
+        //xhr.onreadystatechange é chamada e a lógica para processar a resposta é executada. Isso é assíncrono porque a execução 
+        //----> da função continua enquanto aguarda a resposta do servidor, em vez de aguardar bloqueando a interface do usuário <----.
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) { //egistra uma função que é chamada quando a resposta é recebida do servidor. Se o estado da resposta é 4 (concluída) e o código de status é 200 (OK), a função usa o método JSON.parse() para converter a resposta em um objeto JavaScript. 
+                const dados = JSON.parse(xhr.responseText);
+                const listaDados = document.getElementById('lista-dados');
+
+                dados.forEach(function (dado) {
+                    const li = document.createElement('li');
+                    li.innerText = dado.name;
+                    listaDados.appendChild(li);
+                });
+            }
+        };
+
+        xhr.send();
+    }
+</script>
+
+</html>
+
+<!-- Nesse exemplo, temos uma página HTML simples com um botão e uma lista de dados. Quando o botão é clicado, 
+a função buscarDados() é chamada. Essa função cria uma nova instância do objeto XMLHttpRequest, define o 
+método HTTP como GET e o URL para buscar dados de usuários fictícios em um servidor de teste. O método 
+onreadystatechange registra uma função que é chamada quando a resposta é recebida do servidor. Se o estado 
+da resposta é 4 (concluída) e o código de status é 200 (OK), a função usa o método JSON.parse() para converter
+ a resposta em um objeto JavaScript. Em seguida, a função cria elementos de lista HTML (<li>) para cada usuário 
+    e adiciona-os à lista de dados na página HTML. -->
