@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Previsão do tempo</title>
+  <style>
+    body{
+      background-image: url(https://blog.chbagro.com.br/user-files/blog/169618.jpg);
+    }
+
+    .container{
+      width: 500px;
+      height: 500px;
+      border: 2px solid black;
+      border-radius: 20px;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.697);
+      text-align: center;
+      color: white;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+
+    <h1>Previsão do tempo</h1>
+    <label for="cidade">Digite o nome da cidade:</label>
+    <input type="text" id="cidade" name="cidade">
+    <button onclick="buscarClima()">Buscar</button>
+    <br>
+    <br>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    async function buscarClima() {
+      const cidade = document.getElementById("cidade").value;
+
+      const apiKey = "0640d8b1658975d03ffb792b45c0df56";
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apiKey}&units=metric`;
+
+      try {
+        // fetch é usada para fazer requisições HTTP para recuperar recursos de uma URL
+        const resposta = await fetch(url); //faz esperar até concluir
+        const data = await resposta.json(); //faz esperar até concluir, pega o json
+        const resultado = document.getElementById("resultado");
+        resultado.innerHTML = `
+            <h2>Previsão do tempo para ${data.name}</h2>
+            <p>Temperatura atual: ${data.main.temp}°C</p>
+            <p>Temperatura máxima: ${data.main.temp_max}°C</p>
+            <p>Temperatura mínima: ${data.main.temp_min}°C</p>
+            <p>Humidade: ${data.main.humidity}%</p>
+            
+            <p>Condição: ${data.weather[0].description}</p>
+            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">
+          `;
+
+
+
+
+      } catch (error) {
+        console.error(error);
+        const resultado = document.getElementById("resultado");
+        resultado.innerHTML = "<p>Erro ao buscar clima</p>";
+      }
+    }
+  </script>
+</body>
+
+</html>
