@@ -6,14 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
+
     <script>
         function soma() {
+            //app de dia das mães
+
+            const texto = "Teste";
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(texto);
+            synth.speak(utterance);
+
             var num1 = document.getElementById("n1").value;
             var num2 = document.getElementById("n2").value;
-            var num1 = parseInt(num1);
-            var num2 = parseInt(num2);
+
             var res = document.getElementById("res");
             res.innerHTML = num1 + num2;
+
         }
         function sub() {
             var num1 = document.getElementById("n1").value;
@@ -44,9 +52,9 @@
 <body>
     <h1>Calculadora</h1>
     <p>Digite Um número: </p>
-    <input id="n1"> 
+    <input id="n1" type="number"> 
     <p>Digite Um número: </p> 
-    <input id="n2"> 
+    <input id="n2" type="number"> 
     <br/><br/>
     <button onclick="soma()"> Soma </button>
     <button onclick="sub()"> Subtração </button> 

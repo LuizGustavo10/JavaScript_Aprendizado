@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CoinGecko API Example</title>
+	<style>
+		#price-display {
+			font-size: 24px;
+			font-weight: bold;
+			color: #000;
+		}
+	</style>
+</head>
+<body>
+	<h1>Crypto Price Checker</h1>
+	<form>
+		<label for="currency">Select a cryptocurrency:</label>
+		<select id="currency" name="currency">
+			<option value="bitcoin">Bitcoin</option>
+			<option value="ethereum">Ethereum</option>
+			<option value="litecoin">Litecoin</option>
+			<option value="dogecoin">Dogecoin</option>
+		</select>
+		<input type="submit" value="Get Price">
+	</form>
+	<p>Current price:</p>
+	<p id="price-display"></p>
+
+	<script src="app.js"></script>
+</body>
+</html>

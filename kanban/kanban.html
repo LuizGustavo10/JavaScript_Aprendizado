@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sortable.js Kanban Exemplo</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.css" />
+	<style>
+		.column {
+			display: inline-block;
+			vertical-align: top;
+			width: 200px;
+			padding: 10px;
+			background-color: #f5f5f5;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin-right: 10px;
+		}
+		.card {
+			background-color: #fff;
+			padding: 10px;
+			margin-bottom: 10px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Sortable.js Kanban Example</h1>
+
+	<div class="column" id="todo">
+		<h2>Todo</h2>
+		<ul class="sortable">
+			<li class="card">Card 1</li>
+			<li class="card">Card 2</li>
+			<li class="card">Card 3</li>
+		</ul>
+	</div>
+
+	<div class="column" id="in-progress">
+		<h2>In Progress</h2>
+		<ul class="sortable">
+			<li class="card">Card 4</li>
+			<li class="card">Card 5</li>
+		</ul>
+	</div>
+
+	<div class="column" id="done">
+		<h2>Done</h2>
+		<ul class="sortable">
+			<li class="card">Card 6</li>
+		</ul>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
+	<script>
+		var todoList = document.getElementById('todo').querySelector('.sortable');
+		var inProgressList = document.getElementById('in-progress').querySelector('.sortable');
+		var doneList = document.getElementById('done').querySelector('.sortable');
+
+		new Sortable(todoList, {
+			group: 'kanban',
+			animation: 150,
+			
+		});
+
+		new Sortable(inProgressList, {
+			group: 'kanban',
+			animation: 150,
+		
+		});
+
+		new Sortable(doneList, {
+			group: 'kanban',
+			animation: 150,
+			
+		});
+	</script>
+</body>
+</html>

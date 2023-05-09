@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Consulta de CEP</title>
+  <style>
+    body{
+      background-color: green;
+    }
+
+    .container{
+      margin-top: 60px;
+      width: 400px;
+      height: 300px;
+      border: 1px solid black;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 40px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.505);
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+      
+
+    }
+    button{
+      background-color: green;
+      color: white;
+      border: none;
+      height: 40px;
+      border-radius: 10px;
+
+    }
+
+    input{
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid gray;
+      text-align: center;
+    }
+    
+  </style>
+
+</head>
+
+<body>
+  <div class="container"  data-tilt data-tilt-max="10" data-tilt-speed="300" data-tilt-perspective="500">
+    <h1>Consulta de CEP</h1>
+    <input type="text" id="cep" placeholder="Digite o CEP">
+    <button onclick="buscarCep()">Buscar</button>
+    <p id="resultado"></p>
+    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  </div>
+</body>
+
+</html>
