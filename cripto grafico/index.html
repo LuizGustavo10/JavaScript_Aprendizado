@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <canvas id="myChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Obter dados da API do CoinGecko
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,cardano,xrp&vs_currencies=usd')
+            .then(response => response.json())
+            .then(data => {
+                const bitcoinPrice = data.bitcoin.usd;
+                const ethereumPrice = data.ethereum.usd;
+
+                // Criar o gráfico usando o Chart.js
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Bitcoin', 'Ethereum','cardano','xrp'],
+                        datasets: [{
+                            label: 'Preço em USD',
+                            data: [bitcoinPrice, ethereumPrice],
+                            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+   
+
+
+</body>
+
+</html>

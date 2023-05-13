@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tradutor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .translation-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .translation-form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        .translation-form select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        .translation-form button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .translation-result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tradutor</h1>
+    <div class="translation-form">
+        <input type="text" id="textToTranslate" placeholder="Digite o texto a ser traduzido">
+        <select id="targetLanguage">
+            <option value="en">Inglês</option>
+            <option value="es">Espanhol</option>
+            <option value="fr">Francês</option>
+            <option value="de">Alemão</option>
+        </select>
+        <button onclick="translate()">Traduzir</button>
+    </div>
+    <div class="translation-result" id="translationResult"></div>
+
+    <script>
+        function translate() {
+            var text = document.getElementById("textToTranslate").value;
+            var targetLanguage = document.getElementById("targetLanguage").value;
+            
+            var url = `https://translation.googleapis.com/language/translate/v2?key=SUA_CHAVE_DA_API`;
+            url += `&q=${encodeURIComponent(text)}`;
+            url += `&target=${targetLanguage}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var translatedText = data.data.translations[0].translatedText;
+                    document.getElementById("translationResult").textContent = translatedText;
+                })
+                .catch(error => {
+                    console.log("Erro na tradução:", error);
+                });
+        }
+    </script>
+</body>
+</html>

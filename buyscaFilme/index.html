@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pesquisa de Filmes</title>
+ <style>
+ 
+ body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .search-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-container input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .search-container button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .movies-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .movie-item {
+    margin-bottom: 20px;
+  }
+  
+  .movie-item h2 {
+    margin: 0;
+  }
+  
+  .movie-item p {
+    margin: 0;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+  <h1>Pesquisa de Filmes</h1>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Digite o título do filme">
+    <button onclick="searchMovies()">Pesquisar</button>
+  </div>
+  <div id="moviesContainer"></div>
+
+  <script>
+        function searchMovies() {
+  var searchQuery = document.getElementById("searchInput").value;
+  var apiUrl = "https://www.omdbapi.com/?s=" + encodeURIComponent(searchQuery) + "&apikey=SUA_CHAVE_DO_OMDB";
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      displayMovies(data.Search);
+    })
+    .catch(error => {
+      console.log("Erro na busca dos filmes:", error);
+    });
+}
+
+function displayMovies(movies) {
+  var moviesContainer = document.getElementById("moviesContainer");
+  moviesContainer.innerHTML = "";
+
+  if (movies) {
+    movies.forEach(movie => {
+      var movieElement = createMovieElement(movie);
+      moviesContainer.appendChild(movieElement);
+    });
+  } else {
+    var errorMessage = document.createElement("p");
+    errorMessage.textContent = "Nenhum filme encontrado.";
+    moviesContainer.appendChild(errorMessage);
+  }
+}
+
+function createMovieElement(movie) {
+  var movieElement = document.createElement("div");
+  movieElement.classList.add("movie-item");
+
+  var titleElement = document.createElement("h2");
+  titleElement.textContent = movie.Title;
+
+  var yearElement = document.createElement("p");
+  yearElement.textContent = "Ano: " + movie.Year;
+
+  var typeElement = document.createElement("p");
+  typeElement.textContent = "Tipo: " + movie.Type;
+
+  movieElement.appendChild(titleElement);
+  movieElement.appendChild(yearElement);
+  movieElement.appendChild(typeElement);
+
+  return movieElement;
+}
+  </script>
+</body>
+</html>

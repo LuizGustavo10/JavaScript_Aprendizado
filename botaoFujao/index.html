@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #fugitive {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <body>
+        <button onmouseover="runAway()" id="fugitive">Fuja!</button>
+       
+
+
+
+        <script>
+
+
+
+            function runAway() {
+                var fugitive = document.getElementById("fugitive");
+
+                var windowWidth = window.innerWidth;
+                var windowHeight = window.innerHeight;
+
+                var maxX = windowWidth - fugitive.offsetWidth;
+                var maxY = windowHeight - fugitive.offsetHeight;
+
+                var randomX = Math.floor(Math.random() * maxX);
+                var randomY = Math.floor(Math.random() * maxY);
+
+                fugitive.style.left = randomX + "px";
+                fugitive.style.top = randomY + "px";
+            }
+
+
+
+
+        </script>
+
+
+    </body>
+
+</html>

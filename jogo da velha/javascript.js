@@ -40,6 +40,7 @@ function jogar(celula) {
             celula.style.backgroundColor = "blue";
         }
     }
+    checkWin();
 }
 
 function reiniciar() {
@@ -74,6 +75,36 @@ function addToArr() {
       myList.appendChild(listItem);
     
     
+    }
+  }
+
+
+
+  let currentPlayer = 'X';
+  const quadrados = document.querySelectorAll('.quadrado');
+  const message = document.querySelector('.message');
+  
+//   function play(quadrado) {
+//     if (quadrado.textContent === '') {
+//       quadrado.textContent = currentPlayer;
+//       checkWin();
+//       currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+//     }
+//   }
+  
+  function checkWin() {
+    const winningCombos = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // vertical
+      [0, 4, 8], [2, 4, 6] // diagonal
+    ];
+    for (const combo of winningCombos) {
+      if (quadrados[combo[0]].textContent !== '' &&
+          quadrados[combo[0]].textContent === quadrados[combo[1]].textContent &&
+          quadrados[combo[1]].textContent === quadrados[combo[2]].textContent) {
+        message.textContent = `${quadrados[combo[0]].textContent} wins!`;
+        break;
+      }
     }
   }
   
