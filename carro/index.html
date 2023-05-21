@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consulta de Preço FIPE</title>
+</head>
+<body>
+  <h1>Consulta de Preço FIPE</h1>
+
+  <label for="marca">Marca do Carro:</label>
+  <input type="text" id="marca" placeholder="Ex: Volkswagen">
+
+  <label for="modelo">Modelo do Carro:</label>
+  <input type="text" id="modelo" placeholder="Ex: Gol">
+
+  <label for="ano">Ano do Carro:</label>
+  <input type="number" id="ano" placeholder="Ex: 2010">
+
+  <button onclick="consultarPreco()">Consultar</button>
+
+  <div id="resultado">
+    <!-- O resultado será preenchido aqui -->
+  </div>
+
+  <script>
+    function consultarPreco() {
+      var marca = document.getElementById('marca').value;
+      var modelo = document.getElementById('modelo').value;
+      var ano = document.getElementById('ano').value;
+
+      // Construa a URL da API
+      var apiUrl = 'http://fipeapi.appspot.com/api/1/carros/veiculo/carros/21';
+
+      // Adicione os parâmetros de marca, modelo e ano à URL
+      apiUrl += '/' + marca + '/' + modelo + '/' + ano;
+
+      // Faça uma requisição GET à API
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', apiUrl, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+
+          // Exiba o preço retornado pela API
+          var resultado = document.getElementById('resultado');
+          resultado.innerHTML = 'Preço FIPE: R$ ' + response.preco;
+
+          // Exiba a imagem do carro
+          var imagem = document.createElement('img');
+          imagem.src = response.imagem;
+          resultado.appendChild(imagem);
+        }
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>

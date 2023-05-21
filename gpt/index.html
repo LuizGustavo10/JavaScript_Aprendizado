@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exemplo de busca na API do ChatGPT</title>
+</head>
+<body>
+  <h1>Exemplo de busca na API do ChatGPT</h1>
+
+  <label for="user-input">Digite sua pergunta:</label>
+  <input type="text" id="user-input">
+  <button onclick="buscarResposta()">Enviar</button>
+
+  <div id="resposta"></div>
+
+  <script>
+    function buscarResposta() {
+      const userInput = document.getElementById('user-input').value;
+
+      // Fazer uma chamada para a API do ChatGPT
+      fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY' // Substitua YOUR_API_KEY pelo seu próprio token de API
+        },
+        body: JSON.stringify({
+          prompt: userInput,
+          max_tokens: 100
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resposta = data.choices[0].text.trim();
+        document.getElementById('resposta').innerText = resposta;
+      })
+      .catch(error => {
+        console.error('Ocorreu um erro:', error);
+      });
+    }
+  </script>
+</body>
+</html>
