@@ -33,13 +33,15 @@ body{
 }
 .animacao {
     transition: 2s;
-    border-bottom-right-radius: 60px !important;
-    border-top-left-radius: 60px !important;
+    border-bottom-right-radius: 30px !important;
+    border-top-left-radius: 30px !important;
+    box-shadow: 2px 2px 5px black;
+    margin-bottom: 30px;
 
 }
 
 .card-img-top {
-    border-top-left-radius:60px !important;
+    border-top-left-radius:30px !important;
 }
 
 .animacao:hover {

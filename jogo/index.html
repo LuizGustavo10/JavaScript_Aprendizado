@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Super Mario</title>
+    <style>
+        #player {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+        
+        .obstacle {
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    <div class="obstacle" style="top: 200px; left: 200px;"></div>
+    
+    <script>
+        //ação de movimento se tiver digitado tecla
+        document.addEventListener("keydown", movePlayer);
+        
+        var player = document.getElementById("player"); //jogador
+        var obstacles = document.getElementsByClassName("obstacle"); //obstaculos
+        
+        var playerX = 50;
+        var playerY = 50;
+        var playerSpeedX = 5;
+        var playerSpeedY = 0;
+        var gravity = 0.5;
+        var isJumping = false;
+        
+        function movePlayer(event) {
+            if (event.key === "ArrowLeft") {
+                playerX -= playerSpeedX;
+            } else if (event.key === "ArrowRight") {
+                playerX += playerSpeedX;
+            } else if (event.key === "ArrowUp" && !isJumping) {
+                isJumping = true;
+                playerSpeedY = -10;
+            }
+            
+            updatePlayerPosition();
+            checkCollision();
+        }
+        
+        function checkCollision() {
+            for (var i = 0; i < obstacles.length; i++) {
+                var obstacle = obstacles[i];
+                if (isColliding(player, obstacle)) {
+                    // Verificar a colisão com o topo do obstáculo
+                    if (playerY < obstacle.offsetTop) {
+                        playerSpeedY = 0;
+                        isJumping = false;
+                        playerY = obstacle.offsetTop - player.offsetHeight;
+                    }
+                    // Verificar a colisão com os lados do obstáculo
+                    else {
+                        if (playerX + player.offsetWidth > obstacle.offsetLeft && playerX < obstacle.offsetLeft + obstacle.offsetWidth) {
+                            playerX = obstacle.offsetLeft - player.offsetWidth;
+                        }
+                        else if (playerX < obstacle.offsetLeft + obstacle.offsetWidth && playerX + player.offsetWidth > obstacle.offsetLeft) {
+                            playerX = obstacle.offsetLeft + obstacle.offsetWidth;
+                        }
+                    }
+                }
+            }
+            
+            // Verificar colisão com o chão
+            if (playerY + player.offsetHeight >= window.innerHeight) {
+                playerSpeedY = 0;
+                isJumping = false;
+                playerY = window.innerHeight - player.offsetHeight;
+            }
+        }
+        
+        function isColliding(element1, element2) {
+            var rect1 = element1.getBoundingClientRect();
+            var rect2 = element2.getBoundingClientRect();
+            
+            return !(rect1.right < rect2.left || 
+                     rect1.left > rect2.right || 
+                     rect1.bottom < rect2.top || 
+                     rect1.top > rect2.bottom);
+        }
+        
+        function updatePlayerPosition() {
+            playerSpeedY += gravity;
+            playerX += playerSpeedX;
+            playerY += playerSpeedY;
+            
+            player.style.left = playerX + "px";
+            player.style.top = playerY + "px";
+        }
+        
