@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Breakout</title>
+    <style>
+        #gameCanvas {
+            border: 1px solid black;
+            margin: auto;
+        }
+
+        .painel{
+            width: 800px;
+            height: 600px;
+            margin: auto;
+        }
+
+        button{
+            text-align: center;
+            margin: auto;
+            background-color: green;
+            color: white;
+            border: 1px;
+            border-radius: 10px;
+
+        }
+
+        .botoes{
+            margin: auto;
+            width: 400px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+
+    </style>
+</head>
+<body>
+    
+    <div class="painel">
+      
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    
+    <canvas id="confetti"></canvas>
+    
+    <div class="botoes">
+        <button onclick="facil()"> Fácil </button>
+        <button onclick=""> Médio </button>
+        <button onclick=""> Difícil </button>
+        <button onclick=""> Impossível </button>
+        <button onclick=""> Aleatório </button>
+    </div>
+        
+    <h1>quebra Tijolos</h1>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.min.js" integrity="sha512-n4mkhsTTwnEox+TGRnxJmtvrU+Rgec7NUjrHmZE7RlYOim+XLwgMMe1/jovYl/Eh24hvPLKgX0QGdPfATAphqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script src="script.js"></script>
+
+  
+  
+</body>
+</html>

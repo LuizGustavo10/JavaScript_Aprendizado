@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flappy Bird</title>
+  <style>
+    canvas {
+      background: #f8f8f8;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+  <script>
+    // Inicialização do jogo
+    var canvas = document.getElementById("gameCanvas");
+    var context = canvas.getContext("2d");
+
+    // Variáveis do jogo
+    var birdX = 50;
+    var birdY = canvas.height / 2;
+    var gravity = 1;
+    var velocity = 0;
+    var gap = 200;
+    var pipeWidth = 80;
+    var pipeHeight = 300;
+    var pipeX = canvas.width;
+    var pipes = [];
+    var score = 0;
+
+    // Adiciona um novo tubo ao jogo
+    function addPipe() {
+      var pipeY = Math.floor(Math.random() * (canvas.height - gap - pipeHeight)) + gap;
+      pipes.push({ x: pipeX, y: pipeY });
+    }
+
+    // Atualiza a posição do pássaro e dos tubos
+    function update() {
+      velocity += gravity;
+      birdY += velocity;
+
+      // Move os tubos
+      for (var i = 0; i < pipes.length; i++) {
+        pipes[i].x -= 2;
+
+        // Verifica colisão com o pássaro
+        if (
+          birdX + 30 > pipes[i].x &&
+          birdX < pipes[i].x + pipeWidth &&
+          (birdY < pipes[i].y || birdY + 20 > pipes[i].y + pipeHeight)
+        ) {
+          gameOver();
+        }
+
+        // Verifica se o pássaro passou por cima do tubo com sucesso
+        if (
+          birdX === pipes[i].x + pipeWidth &&
+          birdY + 20 > pipes[i].y &&
+          birdY < pipes[i].y + pipeHeight
+        ) {
+          score++;
+        }
+
+        // Remove tubos que já passaram pelo pássaro
+        if (pipes[i].x + pipeWidth < 0) {
+          pipes.splice(i, 1);
+          i--;
+        }
+      }
+
+      // Verifica colisão com as bordas do canvas
+      if (birdY + 20 > canvas.height || birdY < 0) {
+        gameOver();
+      }
+
+      // Adiciona um novo tubo a cada 150 frames
+      if (frames % 150 === 0) {
+        addPipe();
+      }
+    }
+
+    // Desenha o pássaro e os tubos na tela
+    function draw() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Desenha o pássaro
+      context.fillStyle = "#ff6a6a";
+      context.fillRect(birdX, birdY, 30, 20);
+
+      // Desenha os tubos
+      for (var i = 0; i < pipes.length; i++) {
+        context.fillStyle = "#70c5ce";
+        context.fillRect(pipes[i].x, 0, pipeWidth, pipes[i].y);
+        context.fillRect(pipes[i].x, pipes[i].y + pipeHeight, pipeWidth, canvas.height - pipes[i].y - pipeHeight);
+      }
+
+      // Desenha a pontuação na tela
+      context.fillStyle = "#000";
+      context.font = "24px Arial";
+      context.fillText("Score: " + score, 10, 30);
+    }
+
+    // Função que será chamada a cada frame do jogo
+    function gameLoop() {
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Função chamada quando o jogo acaba
+    function gameOver() {
+      alert("Game Over\nScore: " + score);
+      location.reload(); // Reinicia o jogo
+    }
+
+    // Adiciona um event listener para controlar o pássaro com o clique do mouse
+    canvas.addEventListener("click", function () {
+      velocity = -10; // Impulsiona o pássaro para cima
+    });
+
+    // Inicia o jogo
+    gameLoop();
+  </script>
+</body>
+</html>

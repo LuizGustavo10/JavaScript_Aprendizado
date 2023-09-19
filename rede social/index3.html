@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Minha Rede Social</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #post-form {
+            margin-bottom: 20px;
+        }
+
+        #post-content {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+        #post-feed {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Minha Rede Social</h1>
+
+    <div id="post-form">
+        <textarea id="post-content" placeholder="O que você está pensando?"></textarea>
+        <button onclick="createPost()">Postar</button>
+    </div>
+
+    <div id="post-feed"></div>
+
+    <script>
+
+        const postForm = document.getElementById('post-form');
+        const postContent = document.getElementById('post-content');
+        const postFeed = document.getElementById('post-feed');
+
+        function createPost() {
+            const content = postContent.value;
+
+            if (content.trim() === '') {
+                alert('Por favor, escreva algo antes de postar.');
+                return;
+            }
+
+            // Simulação de uma requisição POST para adicionar uma nova postagem
+            // Em um cenário real, você usaria uma API ou um servidor backend
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.textContent = content;
+            postFeed.prepend(newPost);
+
+            postContent.value = ''; // Limpar o campo de postagem
+        }
+
+        // Simulação de uma requisição GET para carregar as postagens
+        // Em um cenário real, você usaria uma API ou um servidor backend
+        const initialPosts = [
+            'Olá, mundo!',
+            'Estou adorando essa rede social!',
+            'Hoje é um ótimo dia!'
+        ];
+
+        initialPosts.forEach(postText => {
+            const post = document.createElement('div');
+            post.className = 'post';
+            post.textContent = postText;
+            postFeed.appendChild(post);
+        });
+    </script>
+</body>
+
+</html>

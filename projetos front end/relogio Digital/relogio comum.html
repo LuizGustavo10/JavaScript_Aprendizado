@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relógio Analógico</title>
+    <style>
+        #clock {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            border-radius: 50%;
+            position: relative;
+            margin: 50px auto;
+        }
+        .hand {
+            background-color: black;
+            position: absolute;
+            transform-origin: bottom center;
+        }
+        #hour-hand {
+            width: 6px;
+            height: 60px;
+            top: 35px;
+            left: 97px;
+        }
+        #minute-hand {
+            width: 4px;
+            height: 90px;
+            top: 15px;
+            left: 98px;
+        }
+        #second-hand {
+            width: 2px;
+            height: 100px;
+            top: 5px;
+            left: 99px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">
+        <div id="hour-hand" class="hand"></div>
+        <div id="minute-hand" class="hand"></div>
+        <div id="second-hand" class="hand"></div>
+    </div>
+
+    <script>
+        function rotateHands() {
+            const date = new Date();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
+
+            const hourHand = document.getElementById('hour-hand');
+            const minuteHand = document.getElementById('minute-hand');
+            const secondHand = document.getElementById('second-hand');
+
+            const hourAngle = (hours % 12) * 30 + minutes * 0.5;
+            const minuteAngle = minutes * 6;
+            const secondAngle = seconds * 6;
+
+            hourHand.style.transform = `rotate(${hourAngle}deg)`;
+            minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
+            secondHand.style.transform = `rotate(${secondAngle}deg)`;
+        }
+
+        setInterval(rotateHands, 1000);
+    </script>
+</body>
+</html>

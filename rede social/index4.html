@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users App</title>
+    <style>
+        input,
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Users App</h1>
+    <form id="userForm">
+        <input type="text" id="nameInput" placeholder="Nome" required>
+        <input type="text" id="jobInput" placeholder="Cargo" required>
+        <button type="submit">Criar Usuário</button>
+    </form>
+    <h2>Lista de Usuários</h2>
+    <ul id="userList"></ul>
+
+    <script>
+        const userForm = document.getElementById("userForm");
+        const nameInput = document.getElementById("nameInput");
+        const jobInput = document.getElementById("jobInput");
+        const userList = document.getElementById("userList");
+
+        userForm.addEventListener("submit", createUser);
+
+        function createUser(event) {
+            event.preventDefault();
+
+            const user = {
+                first_name: nameInput.value,
+                last_name: jobInput.value // Utilizei o last_name para representar o cargo
+            };
+
+            fetch("https://reqres.in/api/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.id) {
+                        console.log("Novo usuário criado com sucesso. ID:", data.id);
+                        // Adiciona o novo usuário à lista
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `Nome: ${user.first_name} | Cargo: ${user.last_name}`;
+                        userList.appendChild(listItem);
+
+                        // Limpa os campos do formulário
+                        nameInput.value = "";
+                        jobInput.value = "";
+
+                        // Atualiza a lista de usuários após a criação
+                        fetchUserList();
+                    } else {
+                        console.error("Erro ao criar usuário:", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro na solicitação:", error);
+                });
+        }
+
+        function fetchUserList() {
+            fetch("https://reqres.in/api/users")
+                .then(response => response.json())
+                .then(data => {
+                    userList.innerHTML = "";
+                    data.data.forEach(user => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `Nome: ${user.first_name} | Cargo: ${user.last_name}`;
+                        userList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Erro na solicitação:", error);
+                });
+        }
+
+        fetchUserList();
+    </script>
+</body>
+
+</html>

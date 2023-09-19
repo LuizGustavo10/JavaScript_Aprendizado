@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Social Network</title>
+</head>
+<body>
+  <h1>Simple Social Network</h1>
+  <input type="text" id="postInput" placeholder="Digite sua postagem">
+  <button onclick="createPost()">Criar Postagem</button>
+  <ul id="postList"></ul>
+
+  <script>
+    // Variável para armazenar as postagens
+    let posts = [];
+
+    // Função para exibir as postagens na tela
+    function displayPosts() {
+      const postListElement = document.getElementById('postList');
+      postListElement.innerHTML = '';
+
+      posts.forEach(post => {
+        const li = document.createElement('li');
+        li.innerText = post;
+        postListElement.appendChild(li);
+      });
+    }
+
+    // Função para criar uma nova postagem usando POST
+    function createPost() {
+      const postInput = document.getElementById('postInput');
+      const newPost = postInput.value.trim();
+
+      if (newPost === '') {
+        alert('Digite uma postagem válida.');
+        return;
+      }
+
+      // Simulando uma requisição POST para adicionar a nova postagem
+      posts.push(newPost);
+      displayPosts();
+
+      // Limpar o campo de entrada após a criação da postagem
+      postInput.value = '';
+    }
+
+    // Carregar as postagens ao carregar a página (simulado)
+    posts = [
+      'Primeira postagem!',
+      'Bem-vindo à rede social!',
+      'Estou adorando usar o JavaScript!'
+    ];
+
+    displayPosts();
+  </script>
+</body>
+</html>

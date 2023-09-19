@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo de Postagens</title>
+</head>
+<body>
+    <h1>Aplicativo de Postagens</h1>
+    
+    <h2>Criar Nova Postagem</h2>
+    <form id="post-form">
+        <input type="text" id="autor" placeholder="Autor" required>
+        <input type="text" id="conteudo" placeholder="Conteúdo da Postagem" required>
+        <button type="submit">Criar Postagem</button>
+    </form>
+    
+    <h2>Postagens</h2>
+    <ul id="post-list"></ul>
+    
+    <script>
+        const postForm = document.getElementById('post-form');
+        const postList = document.getElementById('post-list');
+        
+        postForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const autor = document.getElementById('autor').value;
+            const conteudo = document.getElementById('conteudo').value;
+            
+            const response = await fetch('/postagens', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    autor: autor,
+                    conteudo: conteudo
+                })
+            });
+            
+            if (response.ok) {
+                document.getElementById('autor').value = '';
+                document.getElementById('conteudo').value = '';
+                carregarPostagens();
+            }
+        });
+        
+        async function carregarPostagens() {
+            postList.innerHTML = '';
+            
+            const response = await fetch('/postagens');
+            const data = await response.json();
+            
+            data.forEach(postagem => {
+                const item = document.createElement('li');
+                item.innerHTML = `<strong>${postagem.autor}:</strong> ${postagem.conteudo}`;
+                postList.appendChild(item);
+            });
+        }
+        
+        carregarPostagens();
+    </script>
+</body>
+</html>

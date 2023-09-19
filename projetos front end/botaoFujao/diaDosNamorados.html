@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,11 +14,11 @@
         .painel{
             margin: auto;
             background-color: white;
-            width: 500px;
+            width: 400px;
             height: 500px;
             border-radius: 20px;
             text-align: center;
-            padding-top: 50px;
+            padding-top: 0px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
         #sim{
@@ -45,16 +45,17 @@
 
 </head>
 <body>
+    
 
-    <div class="painel">
-        <h1> Feliz Dia dos Namorados</h1>
+    <div class="painel" class="your-element" data-tilt data-tilt-max="5/0" data-tilt-speed="400" data-tilt-perspective="500">
+        <h1> Feliz Dia <br> dos Namorados</h1>
 
         <img src="https://gifman.net/wp-content/uploads/2019/06/ursinho-fofo-apaixonado.gif" alt="">
 
         <h2>Aceita namorar comigo? </h2>
         
 
-        <a href="https://www.youtube.com/watch?v=oRvND-r57Us"><button id="sim" > Sim! </button></a>
+        <a href="https://www.youtube.com/watch?v=pwWA96FKzQY"><button id="sim" > Sim! </button></a>
         <button onmouseover="fuja()" id="nao"> Não! </button>
         
     </div>
@@ -75,8 +76,15 @@
             botaoNao.style.left = aleatorioX + "px";
             botaoNao.style.top = aleatorioY + "px";
 
+            const texto = "Pensa bem em Catarina";
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(texto);
+            synth.speak(utterance);
+            
 
         }
+
+   
     </script>
 
 

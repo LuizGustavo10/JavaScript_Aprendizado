@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Social Network with Bootstrap</title>
+  <!-- Link para o arquivo CSS do Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Link para o arquivo CSS do Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.25.0/font/bootstrap-icons.css">
+  <!-- Link para a biblioteca SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.js"></script>
+  <style>
+    .animated-thumb-up {
+      animation: thumb-up 0.5s ease-in-out;
+    }
+
+    @keyframes thumb-up {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Simple Social Network</h1>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" id="postInput" placeholder="Digite sua postagem">
+      <input type="file" class="form-control" id="imageInput">
+      <button class="btn btn-primary" onclick="createPost()">Criar Postagem</button>
+    </div>
+    <div id="postList" class="row row-cols-1 row-cols-md-3 g-4"></div>
+  </div>
+
+  <!-- Link para o arquivo JavaScript do Bootstrap (opcional, mas necessário para algumas funcionalidades do Bootstrap) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Variável para armazenar as postagens
+    let posts = [];
+
+    // Variável para armazenar as notificações
+    let notifications = [];
+
+    // Função para exibir as postagens na tela
+    function displayPosts() {
+      const postListElement = document.getElementById('postList');
+      postListElement.innerHTML = '';
+
+      posts.forEach(post => {
+        const card = document.createElement('div');
+        card.classList.add('col');
+
+        const cardContent = `
+          <div class="card h-100">
+            ${post.image ? `<img src="${post.image}" class="card-img-top" alt="Imagem da postagem">` : ''}
+            <div class="card-body">
+              <p class="card-text">${post.text}</p>
+              <p class="text-muted">Postado em: ${post.timestamp}</p>
+              <button class="btn btn-outline-primary" onclick="toggleLike(${post.id})" id="likeBtn_${post.id}">
+                <i class="bi bi-hand-thumbs-up${post.liked ? ' animated-thumb-up' : ''} me-1"></i> ${post.liked ? 'Curtido' : 'Curtir'}
+              </button>
+              <button class="btn btn-outline-danger ms-2" onclick="removePost(${post.id})">x</button>
+              <button class="btn btn-outline-info ms-2" onclick="editPost(${post.id})">Editar</button>
+              <button class="btn btn-outline-secondary ms-2" onclick="sharePost(${post.id})">Compartilhar</button>
+              <div class="mt-3">
+                <input type="text" class="form-control" id="commentInput_${post.id}" placeholder="Digite seu comentário">
+                <button class="btn btn-outline-secondary mt-2" onclick="addComment(${post.id})">Comentar</button>
+                <ul id="commentList_${post.id}" class="list-group mt-3"></ul>
+              </div>
+            </div>
+          </div>
+        `;
+
+        card.innerHTML = cardContent;
+        postListElement.appendChild(card);
+      });
+    }
+
+    // Função para criar uma nova postagem usando POST
+    function createPost() {
+      const postInput = document.getElementById('postInput');
+      const newPost = postInput.value.trim();
+      const imageInput = document.getElementById('imageInput');
+      const imageFile = imageInput.files[0];
+
+      if (newPost === '') {
+        alert('Digite uma postagem válida.');
+        return;
+      }
+
+      let imageUrl = '';
+      if (imageFile) {
+        imageUrl = URL.createObjectURL(imageFile);
+      }
+
+      // Simulando uma requisição POST para adicionar a nova postagem
+      const newPostObj = {
+        id: posts.length + 1,
+        text: newPost,
+        timestamp: new Date().toLocaleString(), // Adiciona a data e hora da postagem
+        liked: false,
+        image: imageUrl,
+        comments: [],
+        followers: 0, // Inicialmente, a postagem não tem seguidores
+      };
+      posts.push(newPostObj);
+      displayPosts();
+
+      // Notificar os seguidores sobre a nova postagem
+      notifyFollowers(newPostObj);
+
+      // Limpar os campos de entrada após a criação da postagem
+      postInput.value = '';
+      imageInput.value = '';
+    }
+
+    // Função para remover uma postagem
+    function removePost(postId) {
+      // Filtra a postagem pelo id e remove da lista
+      posts = posts.filter(post => post.id !== postId);
+      displayPosts();
+    }
+
+    // Função para editar uma postagem
+    function editPost(postId) {
+      const newText = prompt('Digite o novo texto da postagem:');
+      if (newText === null || newText.trim() === '') {
+        return;
+      }
+
+      const post = posts.find(post => post.id === postId);
+      if (post) {
+        post.text = newText;
+        displayPosts();
+      }
+    }
+
+    // Função para curtir/descurtir uma postagem (toggle like)
+    function toggleLike(postId) {
+      const post = posts.find(post => post.id === postId);
+      if (post) {
+        post.liked = !post.liked;
+        displayPosts();
+
+        // Notificar o autor da postagem caso alguém tenha curtido
+        if (post.liked) {
+          notifyAuthor(post, 'curtiu sua postagem');
+        }
+      }
+    }
+
+    // Função para adicionar um comentário na postagem
+    function addComment(postId) {
+      const commentInput = document.getElementById(`commentInput_${postId}`);
+      const commentText = commentInput.value.trim();
+
+      if (commentText === '') {
+        alert('Digite um comentário válido.');
+        return;
+      }
+
+      const post = posts.find(post => post.id === postId);
+      if (post) {
+        post.comments.push(commentText);
+        displayComments(postId);
+
+        // Notificar o autor da postagem sobre o novo comentário
+        notifyAuthor(post, 'comentou em sua postagem');
+      }
+
+      // Limpar o campo de entrada após adicionar o comentário
+      commentInput.value = '';
+    }
+
+    // Função para exibir os comentários na postagem
+    function displayComments(postId) {
+      const commentListElement = document.getElementById(`commentList_${postId}`);
+      commentListElement.innerHTML = '';
+
+      const post = posts.find(post => post.id === postId);
+      if (post) {
+        post.comments.forEach(comment => {
+          const li = document.createElement('li');
+          li.classList.add('list-group-item');
+          li.innerText = comment;
+          commentListElement.appendChild(li);
+        });
+      }
+    }
+
+    // Função para compartilhar uma postagem
+    function sharePost(postId) {
+      const post = posts.find(post => post.id === postId);
+      if (post) {
+        // Cria uma cópia da postagem para compartilhar
+        const sharedPost = { ...post };
+        sharedPost.text = `Compartilhado de: ${post.text}`;
+        sharedPost.comments = []; // Remove os comentários da postagem compartilhada
+        posts.push(sharedPost);
+        displayPosts();
+
+        // Notificar o autor da postagem sobre o compartilhamento
+        notifyAuthor(post, 'compartilhou sua postagem');
+      }
+    }
+
+    // Função para notificar o autor de uma postagem
+    function notifyAuthor(post, action) {
+      const notification = {
+        id: notifications.length + 1,
+        text: `Sua postagem: "${post.text}" foi ${action}.`,
+        timestamp: new Date().toLocaleString(),
+      };
+      notifications.push(notification);
+      // Aqui você poderia adicionar um sistema de notificações mais elaborado,
+      // como exibir um pop-up de notificação para o usuário
+    }
+
+    // Função para notificar os seguidores sobre uma nova postagem
+    function notifyFollowers(post) {
+      const notification = {
+        id: notifications.length + 1,
+        text: `Nova postagem: "${post.text}"`,
+        timestamp: new Date().toLocaleString(),
+      };
+      notifications.push(notification);
+      // Aqui você poderia adicionar um sistema de notificações mais elaborado,
+      // como enviar notificações para os seguidores da postagem
+    }
+
+    // Carregar as postagens ao carregar a página (simulado)
+    posts = [
+      {
+        id: 1,
+        text: 'Primeira postagem!',
+        timestamp: '30/07/2023 12:00 PM',
+        liked: false,
+        image: '',
+        comments: ['Comentário 1', 'Comentário 2'],
+        followers: 0,
+      },
+      {
+        id: 2,
+        text: 'Bem-vindo à rede social!',
+        timestamp: '30/07/2023 1:30 PM',
+        liked: false,
+        image: '',
+        comments: [],
+        followers: 0,
+      },
+      {
+        id: 3,
+        text: 'Estou adorando usar o JavaScript!',
+        timestamp: '30/07/2023 2:45 PM',
+        liked: false,
+        image: '',
+        comments: ['Comentário 3'],
+        followers: 0,
+      },
+    ];
+
+    displayPosts();
+  </script>
+</body>
+</html>

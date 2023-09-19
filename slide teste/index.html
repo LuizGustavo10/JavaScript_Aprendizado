@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/moon.min.css" />
+    <!-- <script src=" https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.cjs.min.js "></script> -->
+    <!-- <script src="https://unpkg.com/pptxgenjs"></script> -->
+    
+    <!-- <script src="https://unpkg.com/html2pdf.js"></script> -->
+</head>
+  <body>
+
+    <div class="reveal">
+      <div class="slides" id="slides-container">
+        <section>
+          <h1>Título do Slide</h1>
+          <p>Texto do corpo</p>
+
+          <p>teste</p>
+        </section>
+        <section>
+            <h1>Título do Slide 2</h1>
+            <p>Texto do corpo</p>
+  
+            <p>teste</p>
+          </section>
+          <section>
+            <h1>Título do Slide 3</h1>
+            <p>Texto do corpo</p>
+  
+            <p>teste</p>
+            <button id="download-btn">Download PDF</button>
+            <button id="download-btn2">Download PowerPoint</button>
+          </section>
+          
+      </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.min.js"></script>
+    <!-- <script src="https://unpkg.com/pptxgenjs"></script> -->
+    <!-- <script src="https://unpkg.com/pptxgenjs-client/dist/pptxgen.js"></script> -->
+    <!-- <script src="print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/pdf.min.css"></script> -->
+    
+    
+    
+    <script>
+      // Inicialize o Reveal.js
+      Reveal.initialize();
+    </script>
+
+<script>
+    Reveal.initialize({
+      plugins: [RevealPrintPDF]
+    });
+  </script>
+
+<script src="script.js"></script>
+
+
+  </body>
+</html>

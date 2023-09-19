@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .game-over {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+        
+        .game-over-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+
+    
+    <button onclick="exibirGameOver()"></button>
+    <div id="game-over" class="game-over">
+        <div class="game-over-message">
+            Game Over
+        </div>
+    
+        
+    </div>
+    
+    <script>
+        function exibirGameOver() {
+            var gameOverDiv = document.getElementById("game-over");
+            gameOverDiv.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

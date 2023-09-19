@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo de Requisições POST e GET com Formulário</title>
+</head>
+<body>
+    <h1>Exemplo de Requisições POST e GET com Formulário</h1>
+    
+    <form id="meuFormulario" method="Post">
+        <label for="userId">UserID:</label>
+        <input type="text" id="userId" name="userId" value="1"><br><br>
+
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" value="Exemplo de Título"><br><br>
+
+        <label for="body">Corpo:</label><br>
+        <textarea id="body" name="body" rows="4" cols="50">Conteúdo do post</textarea><br><br>
+
+        <button type="submit">Enviar Requisição</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

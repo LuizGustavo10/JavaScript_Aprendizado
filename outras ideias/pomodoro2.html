@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       body {
+  text-align: center;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 40px;
+  background-color: #ccc;
+  margin: 20px auto;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4CAF50;
+  width: 0%;
+  transition: width 1s linear;
+}
+
+#timer {
+  font-size: 48px;
+  margin: 20px 0;
+}
+
+button {
+  font-size: 24px;
+  padding: 10px 20px;
+}
+    </style>
+</head>
+<body>
+
+ 
+  <h1>Pomodoro Timer</h1>
+  <div class="progress-bar">
+    <div class="progress"></div>
+  </div>
+  <div id="timer">25:00</div>
+  <button id="start">Start</button>
+  <button id="reset">Reset</button>
+
+    
+    <script>
+   let timer;
+let timeLeft = 1500; // 25 minutes in seconds
+
+// Atualizar o tempo exibido no temporizador
+function updateTimer() {
+  const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+  const seconds = (timeLeft % 60).toString().padStart(2, '0');
+  document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+
+  const progress = document.querySelector('.progress');
+  const percent = ((1500 - timeLeft) / 1500) * 100; // Calculate percentage
+  progress.style.width = `${percent}%`; // Update progress bar width
+}
+
+// Iniciar o temporizador
+function startTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateTimer();
+    } else {
+      clearInterval(timer);
+      // Se o tempo de trabalho terminar, iniciar a pausa
+      if (timeLeft === 0) {
+        alert('Work time ended. Take a break!');
+        timeLeft = 300; // 5 minutes in seconds
+        updateTimer();
+        startTimer();
+      }
+    }
+  }, 1000);
+}
+
+// Reiniciar o temporizador
+function resetTimer() {
+  clearInterval(timer);
+  timeLeft = 1500; // 25 minutes in seconds
+  updateTimer();
+}
+
+// Associar os botões aos eventos
+document.getElementById('start').addEventListener('click', startTimer);
+document.getElementById('reset').addEventListener('click', resetTimer);
+
+// Atualizar o temporizador inicialmente
+updateTimer();
+    </script>
+</body>
+
+</html>

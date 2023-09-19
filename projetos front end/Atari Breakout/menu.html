@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tela do Jogo</title>
+
+
+</head>
+
+<body>
+    <div class="painel">
+        <label for="bolaDX">bolaDX:</label>
+        <input type="number" id="bolaDX" min="-10" max="10" step="1" value="2">
+
+        <label for="bolaDY">bolaDY:</label>
+        <input type="number" id="bolaDY" min="-10" max="10" step="1" value="-2">
+
+        <label for="tijolosPorLinha">tijolosPorLinha:</label>
+        <input type="number" id="tijolosPorLinha" min="1" max="10" step="1" value="3">
+
+        <label for="tijolosPorColuna">tijolosPorColuna:</label>
+        <input type="number" id="tijolosPorColuna" min="1" max="10" step="1" value="5">
+
+        <button onclick="atualizarVariaveis()">Atualizar</button>
+
+        <button onclick="irParaJogo()"> Jogar</button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

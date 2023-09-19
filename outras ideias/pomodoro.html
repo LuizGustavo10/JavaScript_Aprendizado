@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pomodoro App</title>
+  <style>
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .timer {
+      font-size: 48px;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="timer" class="timer">25:00</div>
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    // Variáveis
+    let timerDisplay = document.getElementById('timer');
+    let startButton = document.getElementById('startBtn');
+    let resetButton = document.getElementById('resetBtn');
+    let workTime = 25; // Tempo de trabalho em minutos
+    let breakTime = 5; // Tempo de pausa em minutos
+    let timeRemaining = workTime * 60; // Tempo restante em segundos
+    let isRunning = false;
+    let intervalId;
+
+    // Função para atualizar o display do timer
+    function updateTimerDisplay() {
+      let minutes = Math.floor(timeRemaining / 60);
+      let seconds = timeRemaining % 60;
+      timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Função para iniciar o timer
+    function startTimer() {
+      if (!isRunning) {
+        isRunning = true;
+        startButton.textContent = 'Pause';
+        intervalId = setInterval(() => {
+          if (timeRemaining > 0) {
+            timeRemaining--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(intervalId);
+            isRunning = false;
+            startButton.textContent = 'Start';
+            alert('Tempo esgotado! É hora de fazer uma pausa.');
+            timeRemaining = breakTime * 60;
+            updateTimerDisplay();
+          }
+        }, 1000);
+      } else {
+        isRunning = false;
+        startButton.textContent = 'Start';
+        clearInterval(intervalId);
+      }
+    }
+
+    // Função para resetar o timer
+    function resetTimer() {
+      clearInterval(intervalId);
+      isRunning = false;
+      startButton.textContent = 'Start';
+      timeRemaining = workTime * 60;
+      updateTimerDisplay();
+    }
+
+    // Event listeners dos botões
+    startButton.addEventListener('click', startTimer);
+    resetButton.addEventListener('click', resetTimer);
+
+    // Atualizar o display inicial
+    updateTimerDisplay();
+  </script>
+</body>
+</html>
